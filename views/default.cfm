@@ -1,5 +1,5 @@
 <cfoutput>
-<h1>I'm the view</h1>
+<h1>I'm the default view</h1>
 
 My custom variable <!--- <cfdump var="#variables.controller.customvariable#" /> ---><br />
 <!--- The insert <cfdump var="#variables.controller.inserted#" /><br />

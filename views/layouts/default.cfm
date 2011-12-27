@@ -1,4 +1,3 @@
-<!--- @@Copyright: Copyright (c) 2011 __MyCompanyName__. All rights reserved. --->
 <!--- @@License: --->
 <cfoutput>
 This is a default layout that loads the view <br />

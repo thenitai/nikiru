@@ -1,4 +1,3 @@
-<!--- @@Copyright: Copyright (c) 2011 __MyCompanyName__. All rights reserved. --->
 <!--- @@License: --->
 <cfcomponent output="false">
 	
@@ -9,7 +8,7 @@
 	<!--- Should client vars be enabled? --->
 	<cfset this.clientManagement = false>
 	<!--- Where should we store them, if enable? --->
-	<cfset this.clientStorage = "registry">
+	<cfset this.clientStorage = "cookie">
 	<!--- Where should cflogin stuff persist --->
 	<cfset this.loginStorage = "session">
 	<!--- Should we even use sessions? --->
@@ -81,22 +80,33 @@
 
 	<!--- Fired when user requests a CFM that doesn't exist. --->
 	<cffunction name="onMissingTemplate" returnType="boolean" output="false">
-		<cfargument name="targetpage" required="true" type="string">
+		<!--- If in debug mode we load the model every time --->
+		<!---
+<cfif this.db.reload>
+			<!--- We check the connection to the DB here --->
+			<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
+			<!--- Setup model --->
+			<cfinvoke component="models.db" method="init" />
+		</cfif>
+		<!--- Call the fw default controller --->
+		<cfinvoke component="nikiru.cfc.global" method="load" thecgi="#cgi#" />
+		<!--- Abort the request here or else we get an empty page --->
+		<cfabort>
+--->
 		<cfreturn true>
 	</cffunction>
 	
 	<!--- Run before the request is processed --->
 	<cffunction name="onRequestStart" returnType="boolean" output="true">
-		<cfargument name="thePage" type="string" required="true">
-			<!--- If in debug mode we load the model every time --->
-			<cfif this.db.reload>
-				<!--- We check the connection to the DB here --->
-				<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
-				<!--- Setup model --->
-				<cfinvoke component="models.db" method="init" />
-			</cfif>
-			<!--- Call the fw default controller --->
-			<cfinvoke component="nikiru.cfc.global" method="load" scriptname="#cgi.script_name#" />
+		<!--- If in debug mode we load the model every time --->
+		<cfif this.db.reload>
+			<!--- We check the connection to the DB here --->
+			<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
+			<!--- Setup model --->
+			<cfinvoke component="models.db" method="init" />
+		</cfif>
+		<!--- Call the fw default controller --->
+		<cfinvoke component="nikiru.cfc.global" method="load" thecgi="#cgi#" />
 		<cfreturn true>
 	</cffunction>
 

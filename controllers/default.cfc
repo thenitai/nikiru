@@ -1,4 +1,3 @@
-<!--- @@Copyright: Copyright (c) 2011 __MyCompanyName__. All rights reserved. --->
 <!--- @@License: --->
 <cfcomponent output="false" extends="nikiru.cfc.global">
 	
@@ -49,9 +48,18 @@
 	
 	<cffunction access="public" name="test">
 		<!--- Do something here --->
-		
+		<cfset this.result = "the test">
 		<!--- Return --->
-		<cfreturn "the test" />
+		<cfreturn this />
+	</cffunction>
+	
+	<cffunction access="public" name="test2">
+		<!--- Load the view --->
+		<cfset this.view = "test" />
+		<!--- Do something here --->
+		<cfset this.result = "the test2 view">
+		<!--- Return --->
+		<cfreturn this />
 	</cffunction>
 	
 </cfcomponent>

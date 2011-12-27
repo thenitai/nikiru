@@ -1,25 +1,25 @@
-<!--- @@Copyright: Copyright (c) 2011 __MyCompanyName__. All rights reserved. --->
 <!--- @@License: --->
 <cfcomponent output="false">
-	
-	<cfset this.layout = "default">
-	<cfset this.view = "default">
 		
 	<!--- Load --->
 	<cffunction access="public" name="load">
-		<cfargument name="scriptname" type="string" required="true" />
+		<cfargument name="thecgi" type="struct" required="true" />
 		<!--- set the controller --->
-		<cfif arguments.scriptname EQ "" OR arguments.scriptname EQ "/" OR arguments.scriptname EQ "/index.cfm">
+		<cfif arguments.thecgi.query_string EQ "" OR arguments.thecgi.query_string EQ "/">
 			<cfset var thecontroller = "default">
+			<cfset var thefunction = thecontroller>
+			<cfset this.layout = thecontroller>
+			<cfset this.view = thecontroller>
 		<cfelse>
-			<cfset var con = listlast(arguments.scriptname,"/")>
-			<cfset var con = listfirst(con,".")>
-			<cfset var thecontroller = con>
+			<cfset var thecontroller = listfirst(arguments.thecgi.query_string,"/")>
+			<cfset var thefunction = listlast(arguments.thecgi.query_string,"/")>
+			<cfset this.layout = "default">
+			<cfset this.view = thefunction>
 		</cfif>
 		<!--- Check that there is a controller with this name --->
 		<cftry>
 			<!--- Controller --->
-			<cfinvoke component="controllers.default" method="#thecontroller#" returnvariable="con_return" />
+			<cfinvoke component="controllers.#thecontroller#" method="#thefunction#" returnvariable="con_return" />
 			<!--- Load the layout. Did the user define a custom layout for this controller? --->
 			<cfif NOT structkeyexists(con_return,"layout")>
 				<cfset con_return.layout = this.layout>
@@ -33,7 +33,7 @@
 			<cfset application.nikiru.view = con_return.view>
 			<!--- Load renderer --->
 			<cfinvoke method="render" thestruct="#con_return#" />
-			<!--- We cant load the controller, throw error --->
+			<!--- We cant load the controller or function --->
 			<cfcatch>
 				<cfdump var="#cfcatch#"><cfabort>
 			</cfcatch>
@@ -48,7 +48,7 @@
 		<!--- Params --->
 		<cfset var path_views = "../../views/">
 		<cfset var path_layouts = "#path_views#layouts/">
-		<!--- Put arguments struct from above into struct so it is available to the user --->
+		<!--- Put arguments struct from above into variables struct so it is available to the user --->
 		<cfset variables.controller = arguments.thestruct>
 		<!--- Load the view --->
 		<cfsavecontent variable="theview"><cfsetting enablecfoutputonly="false" /><cfinclude template="#path_views##arguments.thestruct.view#.cfm" /><cfsetting enablecfoutputonly="true" /></cfsavecontent>
