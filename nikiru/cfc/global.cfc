@@ -11,11 +11,15 @@
 			<cfset this.layout = thecontroller>
 			<cfset this.view = thecontroller>
 		<cfelse>
+			<!--- Controller --->
 			<cfset var thecontroller = listfirst(arguments.thecgi.query_string,"/")>
-			<cfset var thefunction = listlast(arguments.thecgi.query_string,"/")>
+			<!--- Function --->
+			<cfset var f = listlast(arguments.thecgi.query_string,"/")>
+			<cfset var thefunction = listfirst(f,"&")>
+			<!--- Layout and view --->
 			<cfset this.layout = "default">
 			<cfset this.view = thefunction>
-		</cfif>
+		</cfif>	
 		<!--- Check that there is a controller with this name --->
 		<cftry>
 			<!--- Controller --->
@@ -31,6 +35,8 @@
 			<!--- Set the layout and view into application variables for --->
 			<cfset application.nikiru.layout = con_return.layout>
 			<cfset application.nikiru.view = con_return.view>
+			<!--- Load the URL into parameters --->
+			<cfset con_return.params = url>
 			<!--- Load renderer --->
 			<cfinvoke method="render" thestruct="#con_return#" />
 			<!--- We cant load the controller or function --->

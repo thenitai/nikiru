@@ -1,5 +1,7 @@
-<!--- @@Copyright: Copyright (c) 2011 __MyCompanyName__. All rights reserved. --->
-<!--- @@License: --->
+<cfoutput>
+<h1>I'm the test view</h1>
 
 
-test page
+
+
+</cfoutput>
