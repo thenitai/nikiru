@@ -35,7 +35,11 @@
 		<!--- This is the actual form call --->
 		<cfset this.createform = formdo(action='insert',table='images',message='We have successfully added the record!',fields='#arrFields#',submit='#arrSubmit#')>
 		
+		<cfset this.qry_img = db_select(table='images',fetch='id,img_title,img_date_new',where='',orderby='',groupby='',limit='')>
+		
 		<!--- Form End --->
+		
+		
 		
 		<!--- Delete --->
 		<!--- Paramaters to pass are: --->

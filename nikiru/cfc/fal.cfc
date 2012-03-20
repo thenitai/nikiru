@@ -37,7 +37,7 @@
 			<!--- Param --->
 			<cfset var theform = "">
 			<!--- Unique id for this form --->
-			<cfset var formid = replace(createuuid(),"-","","all")>
+			<cfset var formid = createuuid("")>
 			<!--- Save form to variable --->
 			<cfsavecontent variable="theform"><cfoutput>
 			<form enctype="multipart/form-data" action="" method="post" name="#formid#" id="#formid#">

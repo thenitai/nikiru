@@ -120,7 +120,7 @@
 		<cfargument name="fields" type="string" required="true" />
 		<!--- Param --->
 		<cfset var qry = 0>
-		<cfset var theid = createuuid()>
+		<cfset var theid = createuuid("")>
 		<!--- Do an insert of the ID --->
 		<cfquery datasource="#application.db.dsn#">
 		INSERT INTO #arguments.table#

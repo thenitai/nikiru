@@ -27,6 +27,8 @@
 	<cfset this.secureJSONPrefix = "">
 	<!--- Used to help CF work with missing files and dir indexes --->
 	<cfset this.welcomeFileList = "">
+	<!--- The current directory --->
+	<cfset this.currentDir = expandpath(".")>
 	
 	<!--- define custom coldfusion mappings. Keys are mapping names, values are full paths  --->
 	<cfset this.mappings = structNew()>
@@ -47,13 +49,13 @@
 	<cfset this.db.dsn = "nikiru">
 	<!--- Schema --->
 	<cfset this.db.schema = "nikiru">
-	<!--- If set to true the model will be loaded on each request. This should be set to false in production --->
+	<!--- If set to true the model and database setup will be loaded on each request. This should be set to false in production --->
 	<cfset this.db.reload = false>
 	
 	
 	<!---  --->
 	<!--- That's it. Nothing else to do here. --->
-	<!--- Don't forget to restart your application if you are chaning these values during runtime! --->
+	<!--- Don't forget to restart your application if you are changing these values during runtime! --->
 	<!---  --->
 	
 	<!--- Are we in debug mode? --->
@@ -66,10 +68,12 @@
 	
 	<!--- Run when application starts up --->
 	<cffunction name="onApplicationStart" returnType="boolean" output="false">
+		<!--- Load model --->
+		<cfinvoke component="nikiru.cfc.setup" method="load_model" currentDir="#this.currentDir#" />
 		<!--- We check the connection to the DB here --->
 		<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
-		<!--- Setup model --->
-		<cfinvoke component="models.db" method="init" />
+		<!--- Setup database --->
+		<cfinvoke component="setup.db" method="init" />
 		<cfreturn true>
 	</cffunction>
 
@@ -80,19 +84,6 @@
 
 	<!--- Fired when user requests a CFM that doesn't exist. --->
 	<cffunction name="onMissingTemplate" returnType="boolean" output="false">
-		<!--- If in debug mode we load the model every time --->
-		<!---
-<cfif this.db.reload>
-			<!--- We check the connection to the DB here --->
-			<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
-			<!--- Setup model --->
-			<cfinvoke component="models.db" method="init" />
-		</cfif>
-		<!--- Call the fw default controller --->
-		<cfinvoke component="nikiru.cfc.global" method="load" thecgi="#cgi#" />
-		<!--- Abort the request here or else we get an empty page --->
-		<cfabort>
---->
 		<cfreturn true>
 	</cffunction>
 	
@@ -100,10 +91,12 @@
 	<cffunction name="onRequestStart" returnType="boolean" output="true">
 		<!--- If in debug mode we load the model every time --->
 		<cfif this.db.reload>
+			<!--- Load model --->
+			<cfinvoke component="nikiru.cfc.setup" method="load_model" currentDir="#this.currentDir#" />
 			<!--- We check the connection to the DB here --->
 			<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
-			<!--- Setup model --->
-			<cfinvoke component="models.db" method="init" />
+			<!--- Setup database --->
+			<cfinvoke component="setup.db" method="init" />
 		</cfif>
 		<!--- Call the fw default controller --->
 		<cfinvoke component="nikiru.cfc.global" method="load" thecgi="#cgi#" />
@@ -114,7 +107,6 @@
 	<!--- 
 	WARNING!!!!! THE USE OF THIS METHOD WILL BREAK FLASH REMOTING, WEB SERVICES, AND AJAX CALLS. 
 	DO NOT USE THIS METHOD UNLESS YOU KNOW THIS AND KNOW HOW TO WORK AROUND IT!
-	EXAMPLE: http://www.coldfusionjedi.com/index.cfm?mode=entry&entry=ED9D4058-E661-02E9-E70A41706CD89724
 	--->
 	<cffunction name="onRequest" returnType="void">
 		<cfargument name="thePage" type="string" required="true">	
