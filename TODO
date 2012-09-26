@@ -1,0 +1,13 @@
+General:
+Append url params (handle incoming params properly also in urlfilter) (web2py handles it with args[0], args[1], etc.)
+Translations (use the i18n system), simple do a T('my text')
+
+
+Form:
+Edit form view (when user edits a record)
+Update record (action=update)
+delete record (action=delete)
+
+
+Ajax:
+Ajax calls and feedback (JS submits and load) (I think simply using jQuery should solve it)

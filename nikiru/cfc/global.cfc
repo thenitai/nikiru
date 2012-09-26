@@ -17,13 +17,17 @@
 			<cfset var f = listlast(arguments.thecgi.query_string,"/")>
 			<cfset var thefunction = listfirst(f,"&")>
 			<!--- Layout and view --->
-			<cfset this.layout = "default">
+			<cfset this.layout = thecontroller>
 			<cfset this.view = thefunction>
-		</cfif>	
+			<!--- If API call --->
+			<cfif thecontroller EQ "api">
+				<cfset this.view = "api">
+			</cfif>
+		</cfif>
 		<!--- Check that there is a controller with this name --->
 		<cftry>
 			<!--- Controller --->
-			<cfinvoke component="controllers.#thecontroller#" method="#thefunction#" returnvariable="con_return" />
+			<cfinvoke component="controllers.#thecontroller#" method="#thefunction#" args="#arguments.thecgi#" returnvariable="con_return" />
 			<!--- Load the layout. Did the user define a custom layout for this controller? --->
 			<cfif NOT structkeyexists(con_return,"layout")>
 				<cfset con_return.layout = this.layout>

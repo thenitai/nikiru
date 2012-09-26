@@ -1,7 +1,7 @@
 <!--- @@License: --->
 <cfcomponent output="false" extends="nikiru.cfc.global">
 	
-	<cffunction access="public" name="default">
+	<cffunction access="remote" name="default" returnType="struct" returnformat="json">
 		<!--- Do something here --->
 		<cfset this.customvariable = "the index">
 		<!--- Load custom layout for this action --->

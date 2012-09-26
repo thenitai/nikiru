@@ -8,6 +8,8 @@ The delete <cfdump var="#variables.controller.delete#" /> --->
 Here is the form:
 #variables.controller.createform#
 
+<p>The select</p>
 
+<cfdump var="#variables.controller.qry_img#">
 
 </cfoutput>
