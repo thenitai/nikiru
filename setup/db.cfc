@@ -1,5 +1,7 @@
 <!--- @@License: --->
 <cfcomponent output='false' extends='nikiru.cfc.dal'>
+	
+	<!--- Init --->
 	<cffunction access='public' name='init'>
 		
 		<!---  --->
@@ -16,7 +18,7 @@
 	
 		<!---  --->
 		<!--- That's it. Nothing else to do here. --->
-		<!--- Don't forget to restart your application if you are chaning these values during runtime! --->
+		<!--- Don't forget to restart your application if you are changing these values during runtime! --->
 		<!---  --->
 		
 	</cffunction>

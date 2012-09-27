@@ -20,6 +20,8 @@
 			<cfset application.db.dsn = thestruct.dsn>
 			<cfset application.db.schema = thestruct.schema>
 			<cfcatch>
+				Your database connection is not setup properly. <a href="bluedragon/administrator/login.cfm">Go to the admin to fix this!</a>
+				<br />
 				<cfdump var="#cfcatch#"><cfabort>
 			</cfcatch>
 		</cftry>

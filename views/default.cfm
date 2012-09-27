@@ -1,6 +1,8 @@
 <cfoutput>
 <h1>I'm the default view</h1>
 
+Translation: <cfdump var="#application.nikiru.t.getstring('homepage','username')#">
+
 My custom variable <!--- <cfdump var="#variables.controller.customvariable#" /> ---><br />
 <!--- The insert <cfdump var="#variables.controller.inserted#" /><br />
 The select <cfdump var="#variables.controller.testselect#" /><br />
@@ -10,6 +12,8 @@ Here is the form:
 
 <p>The select</p>
 
-<cfdump var="#variables.controller.qry_img#">
+<cfloop query="variables.controller.qry_img">
+	#img_title# #img_date_new# <a href="/default/edit_record/#id#">Edit</a><br />
+</cfloop>
 
 </cfoutput>

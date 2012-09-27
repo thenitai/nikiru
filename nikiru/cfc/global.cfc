@@ -4,43 +4,49 @@
 	<!--- Load --->
 	<cffunction access="public" name="load">
 		<cfargument name="thecgi" type="struct" required="true" />
+		<!--- Create struct --->
+		<cfset var thisstruct = structNew()>
 		<!--- set the controller --->
 		<cfif arguments.thecgi.query_string EQ "" OR arguments.thecgi.query_string EQ "/">
 			<cfset var thecontroller = "default">
 			<cfset var thefunction = thecontroller>
-			<cfset this.layout = thecontroller>
-			<cfset this.view = thecontroller>
+			<cfset thisstruct.layout = thecontroller>
+			<cfset thisstruct.view = thecontroller>
 		<cfelse>
+			<!--- Get the first part of the query string before the & --->
+			<cfset var thefirstpart = listfirst(arguments.thecgi.query_string,"&")>
+			<cfset thisstruct.args = listlast(arguments.thecgi.query_string,"&")>
 			<!--- Controller --->
-			<cfset var thecontroller = listfirst(arguments.thecgi.query_string,"/")>
+			<cfset var thecontroller = listfirst(thefirstpart,"/")>
 			<!--- Function --->
-			<cfset var f = listlast(arguments.thecgi.query_string,"/")>
-			<cfset var thefunction = listfirst(f,"&")>
+			<cfset var thefunction = listlast(thefirstpart,"/")>
 			<!--- Layout and view --->
-			<cfset this.layout = thecontroller>
-			<cfset this.view = thefunction>
+			<cfset thisstruct.layout = thecontroller>
+			<cfset thisstruct.view = thefunction>
 			<!--- If API call --->
 			<cfif thecontroller EQ "api">
-				<cfset this.view = "api">
+				<cfset thisstruct.view = "api">
 			</cfif>
 		</cfif>
 		<!--- Check that there is a controller with this name --->
 		<cftry>
+			<!--- Combine the arguments and the thisstruct --->
+			<cfset structAppend(arguments, thisstruct)>
 			<!--- Controller --->
-			<cfinvoke component="controllers.#thecontroller#" method="#thefunction#" args="#arguments.thecgi#" returnvariable="con_return" />
+			<cfinvoke component="controllers.#thecontroller#" method="#thefunction#" args="#arguments#" returnvariable="con_return" />
 			<!--- Load the layout. Did the user define a custom layout for this controller? --->
 			<cfif NOT structkeyexists(con_return,"layout")>
-				<cfset con_return.layout = this.layout>
+				<cfset con_return.layout = thisstruct.layout>
 			</cfif>
 			<!--- Load the view --->
 			<cfif NOT structkeyexists(con_return,"view")>
-				<cfset con_return.view = this.view>
+				<cfset con_return.view = thisstruct.view>
 			</cfif>
 			<!--- Set the layout and view into application variables for --->
 			<cfset application.nikiru.layout = con_return.layout>
 			<cfset application.nikiru.view = con_return.view>
 			<!--- Load the URL into parameters --->
-			<cfset con_return.params = url>
+			<cfset con_return.args = url>
 			<!--- Load renderer --->
 			<cfinvoke method="render" thestruct="#con_return#" />
 			<!--- We cant load the controller or function --->
@@ -131,6 +137,7 @@
 		<cfargument name="message" type="string" required="true" />
 		<cfargument name="fields" type="array" required="true" />
 		<cfargument name="submit" type="array" required="true" />
+		<cfargument name="args" type="string" required="false" default="" />
 			<!--- Param --->
 			<cfset var form = 0>
 			<!--- Call our internal function --->
@@ -140,6 +147,7 @@
 				<cfinvokeargument name="message" value="#arguments.message#" />
 				<cfinvokeargument name="fields" value="#arguments.fields#" />
 				<cfinvokeargument name="submit" value="#arguments.submit#" />
+				<cfinvokeargument name="args" value="#arguments.args#" />
 			</cfinvoke>
 	
 		<!--- Return --->

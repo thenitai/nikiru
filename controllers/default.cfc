@@ -43,13 +43,25 @@
 		
 		<!--- Delete --->
 		<!--- Paramaters to pass are: --->
-		<!--- table,where (if the where is empty you will remove aLL records in the table !!! )--->
+		<!--- table,where (if the where is empty you will remove ALL records in the table !!! )--->
 		<!--- <cfset this.delete = db_delete(table='images',where='id = "#this.inserted#"')> --->
 		
 		<!--- Return --->
 		<cfreturn this />
 	</cffunction>
 	
+	<cffunction access="public" name="edit_record">
+		<cfargument name="args" type="struct" required="false" />
+		<!--- Define fields: Label, fieldid, field type, required (true/false), initial field value (optional) --->
+		<cfset arrFields = [["Enter name","img_title","text","true"]] />
+		<!--- Define Submit button: Label, action (in case for custom ajax or js call) (optional) --->
+		<cfset arrSubmit = [["Update this record"]] />
+		<!--- Update form --->
+		<cfset this.updateform = formdo(action='update',table='images',message='We have successfully updated the record!',fields='#arrFields#',submit='#arrSubmit#',args=arguments.args.args)>
+		<!--- Return --->
+		<cfreturn this />
+	</cffunction>
+
 	<cffunction access="public" name="test">
 		<!--- Do something here --->
 		<cfset this.result = "the test">
