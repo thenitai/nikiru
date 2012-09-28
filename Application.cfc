@@ -74,6 +74,8 @@
 		<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
 		<!--- Setup database --->
 		<cfinvoke component="setup.db" method="init" />
+		<!--- Init the translations --->
+		<cfset application.nikiru.resourcemanager = createObject('component', 'nikiru.cfc.ResourceManager').init('translations')>
 		<cfreturn true>
 	</cffunction>
 
@@ -97,6 +99,8 @@
 			<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
 			<!--- Setup database --->
 			<cfinvoke component="setup.db" method="init" />
+			<!--- Init the translations --->
+			<cfset application.nikiru.resourcemanager = createObject('component', 'nikiru.cfc.ResourceManager').init('translations')>
 		</cfif>
 		<!--- Call the fw default controller --->
 		<cfinvoke component="nikiru.cfc.global" method="load" thecgi="#cgi#" />

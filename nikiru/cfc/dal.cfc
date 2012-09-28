@@ -2,7 +2,7 @@
 <cfcomponent output="false">
 	
 	<cfset this.mysql_db_params = "ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin">
-	
+
 	<!--- Setup Connection to the DB --->
 	<cffunction access="public" name="connect">
 		<cfargument name="thestruct" type="struct" required="true" />
@@ -79,6 +79,8 @@
 				<cfcatch></cfcatch>
 			</cftry>
 		</cfloop>
+		<!--- Cachekey --->
+		<cfset session.cachekey = createuuid()>
 		<!--- Return --->
 		<cfreturn />
 	</cffunction>
@@ -93,14 +95,18 @@
 		<cfargument name="limit" type="string" required="false" default="" />
 		<!--- Param --->
 		<cfset var qry = 0>
+		<!--- Cachekey --->
+		<cfif !structKeyExists(session,"cachekey")>
+			<cfset session.cachekey = createuuid()>
+		</cfif>
 		<!--- Get field type for the where --->
 		<!--- <cfinvoke component="dal" method="getfieldtype" returnvariable="datatype">
 			<cfinvokeargument name="table" value="#arguments.table#" />
 			<cfinvokeargument name="columnname" value="#listfirst(i,":")#" />
 		</cfinvoke> --->
 		<!--- Query --->
-		<cfquery datasource="#application.db.dsn#" name="qry">
-		SELECT <cfif arguments.fetch EQ "">*<cfelse>#arguments.fetch#</cfif>
+		<cfquery datasource="#application.db.dsn#" name="qry" cacheRegion="nikiru" cachedwithin="1">
+		SELECT /* #session.cachekey# */ <cfif arguments.fetch EQ "">*<cfelse>#arguments.fetch#</cfif>
 		FROM #arguments.table#
 		<cfif arguments.where NEQ "">
 			WHERE #arguments.where#
@@ -138,6 +144,8 @@
 			<cfinvokeargument name="fields" value="#arguments.fields#" />
 			<cfinvokeargument name="where" value="#thewhere#" />
 		</cfinvoke>
+		<!--- Cachekey --->
+		<cfset session.cachekey = createuuid()>
 		<!--- Return --->
 		<cfreturn theid />
 	</cffunction>
@@ -180,6 +188,8 @@
 			</cfif>
 			</cfquery>
 		</cfloop>
+		<!--- Cachekey --->
+		<cfset session.cachekey = createuuid()>
 		<!--- Return --->
 		<cfreturn status />
 	</cffunction>
@@ -203,6 +213,8 @@
 				<cfset var status = false>
 			</cfcatch>
 		</cftry>
+		<!--- Cachekey --->
+		<cfset session.cachekey = createuuid()>
 		<!--- Return --->
 		<cfreturn status />
 	</cffunction>

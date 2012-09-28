@@ -1,7 +1,7 @@
 <cfoutput>
 <h1>I'm the default view</h1>
 
-Translation: <cfdump var="#application.nikiru.t.getstring('homepage','username')#">
+Translation: 
 
 My custom variable <!--- <cfdump var="#variables.controller.customvariable#" /> ---><br />
 <!--- The insert <cfdump var="#variables.controller.inserted#" /><br />

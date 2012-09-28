@@ -1,13 +1,10 @@
 General:
-Translations (use the i18n system), simple do a T('my text')
-
 
 Form:
 delete record (action=delete)
-
 
 Ajax:
 Ajax calls and feedback (JS submits and load) (I think simply using jQuery should solve it)
 
 Database:
-User caching (openBD caching)
+

@@ -149,9 +149,18 @@
 				<cfinvokeargument name="submit" value="#arguments.submit#" />
 				<cfinvokeargument name="args" value="#arguments.args#" />
 			</cfinvoke>
-	
 		<!--- Return --->
 		<cfreturn form />
 	</cffunction>
 	
+	<!--- Translation --->
+	<cffunction access="public" name="T">
+		<cfargument name="key" type="string" required="true" />
+		<cfargument name="resource" type="string" required="false" default="default" />
+		<cfargument name="values" hint="Array of values to substitute for $1, $2 etc in the resource string" type="array" required="false" default="#arrayNew(1)#" />
+		<cfargument name="locale" hint="Resource Locale" type="string" required="false" default="en" />
+		<!--- Return --->
+		<cfreturn application.nikiru.resourcemanager.getString(resourceBundleName=arguments.resource,key=arguments.key,values=arguments.values,locale=arguments.locale) />
+	</cffunction>
+
 </cfcomponent>

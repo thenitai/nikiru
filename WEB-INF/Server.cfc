@@ -3,10 +3,11 @@
   <cffunction name="onServerStart">
     <!--- Create the cache --->
     <cfset cacheregionnew(
-      region="razcache",
+      region="nikiru",
       props=
       {
-        type : 'memorydisk'
+        type : 'memorydisk',
+        diskpersistent : true
       }
     )>
 
@@ -15,7 +16,7 @@
     <!--- Memcached / CouchBase --->
     <!--- 
     <cfset cacheregionnew(
-    region="razcache",
+    region="nikiru",
     props=
         {
         type : 'memcached',
@@ -28,12 +29,12 @@
     <!--- MongoDB --->
     <!--- 
     <cfset cacheregionnew(
-    region="razcache",
+    region="nikiru",
     props=
         {
       type : 'mongo',
       server : '10.0.0.1:27017 10.0.0.2:27017',
-      db : 'razcache',
+      db : 'nikiru',
       collection : 'nameofregion',
       user : 'username',
       password : 'password'

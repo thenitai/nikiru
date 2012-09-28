@@ -65,7 +65,7 @@
 			<cfelse>
 
 				<!--- Fall back --->
-				<cfset currentLocale = variables.getLocaleFallBack(currentLocale) />
+				<cfset currentLocale = variables.getLocaleFallBack(this.getLocaleCode()) />
 				
 				<cfif currentLocale eq ''>
 					<cfthrow type="com.bealearts.util.Internationalisation.RESOURCE_NOT_FOUND" message="Resource not found" detail="Resource key '#arguments.key#' in Resource Bundle '#arguments.resourceBundleName#' in locale or fall back locale not found for '#currentLocale#'" />

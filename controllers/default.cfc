@@ -58,6 +58,8 @@
 		<cfset arrSubmit = [["Update this record"]] />
 		<!--- Update form --->
 		<cfset this.updateform = formdo(action='update',table='images',message='We have successfully updated the record!',fields='#arrFields#',submit='#arrSubmit#',args=arguments.args.args)>
+		<!--- Translation --->
+		<cfset this.username = T('username')>
 		<!--- Return --->
 		<cfreturn this />
 	</cffunction>
