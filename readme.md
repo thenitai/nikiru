@@ -13,20 +13,16 @@ Controllers consist of functions that are associated to a URL and are called whe
 
 As mentioned, Nikiru tries to go out of your way, thus you can write your controllers, views and controllers in pure CFML with the help of some framework functions like:
 
-Database Helper
----------------
+#### Database Helper ####
 As an example you can simply select from the database with "db_select()".
 
-Form Helper
------------
+#### Form Helper ####
 Nikiru additionaly creates forms automatically from your database columns (added within the model) with a simple form_do().
 
-Translation built in
---------------------
+#### Translation built in ####
 Nikiru makes use of Resource Bundles and integrates them easily with a function called T().
 
-Bootstrap enabled
------------------
+#### Bootstrap enabled ####
 By default, Nikiru comes with Bootstrap from Twitter.
 
 ### Why CFML / ColdFusion? ###
