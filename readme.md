@@ -31,8 +31,10 @@ Compared to PHP, Java, C++, even Ruby and Python – CFML allows you to write th
 
 But since you are already looking at this I think you know your way around CFML. In case you want to read more about the cons of CFML you can read one of my [blog posts](http://thenitai.com/2012/02/04/why-coldfusion-cfml-has-its-place-and-is-worth-to-learn-it/)
 
+### Documentation ###
+
+Please use the [Wiki](wiki) pages for up-to-date documentation.
+
 ### Support ###
 
-
-
-Please use the main repo's [issue tracker](https://github.com/bobsilverberg/CFSelenium/issues) to report bugs and request enhancements.
+Please use the main repo's [issue tracker](issues) to report bugs and request enhancements.
