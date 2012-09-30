@@ -33,7 +33,7 @@ But since you are already looking at this I think you know your way around CFML.
 
 ### Documentation ###
 
-Please use the [Wiki](wiki) pages for up-to-date documentation.
+Please use the [Wiki](/wiki) pages for up-to-date documentation.
 
 ### Support ###
 
