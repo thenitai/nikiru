@@ -6,17 +6,17 @@
 <urlrewrite>
 	
     <rule enabled="true">
-        <condition type="request-uri" operator="notequal">^/(bluedragon|administrator|robots.txt|osd.xml|flex2gateway|cfide|cfformgateway|railo-context|admin-context|files|images|jrunscripts|javascripts|miscellaneous|stylesheets|css|js)</condition>
+        <condition type="request-uri" operator="notequal">^/(bluedragon|administrator|robots.txt|osd.xml|flex2gateway|cfide|cfformgateway|railo-context|admin-context|files|images|jrunscripts|javascripts|miscellaneous|stylesheets|css|js|bootstrap|img)</condition>
         <from>^/([A-Za-z0-9]+)$</from>
         <to type="forward">/index.cfm?$1/</to>
     </rule>
 	<rule enabled="true">
-        <condition type="request-uri" operator="notequal">^/(bluedragon|administrator|robots.txt|osd.xml|flex2gateway|cfide|cfformgateway|railo-context|admin-context|files|images|jrunscripts|javascripts|miscellaneous|stylesheets|css|js)</condition>
+        <condition type="request-uri" operator="notequal">^/(bluedragon|administrator|robots.txt|osd.xml|flex2gateway|cfide|cfformgateway|railo-context|admin-context|files|images|jrunscripts|javascripts|miscellaneous|stylesheets|css|js|bootstrap|img)</condition>
         <from>^/([A-Za-z0-9]+)/([A-Za-z0-9_-]+)$</from>
         <to type="forward">/index.cfm?$1/$2</to>
     </rule>
 	<rule enabled="true">
-        <condition type="request-uri" operator="notequal">^/(bluedragon|administrator|robots.txt|osd.xml|flex2gateway|cfide|cfformgateway|railo-context|admin-context|files|images|jrunscripts|javascripts|miscellaneous|stylesheets|css|js)</condition>
+        <condition type="request-uri" operator="notequal">^/(bluedragon|administrator|robots.txt|osd.xml|flex2gateway|cfide|cfformgateway|railo-context|admin-context|files|images|jrunscripts|javascripts|miscellaneous|stylesheets|css|js|bootstrap|img)</condition>
         <from>^/([A-Za-z0-9]+)/([A-Za-z0-9_-]+)/([A-Za-z0-9_-]+)</from>
         <to type="forward">/index.cfm?$1/$2&amp;$3</to>
     </rule>

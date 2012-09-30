@@ -33,7 +33,7 @@
 		<!--- Define Submit button: Label, action (in case for custom ajax or js call) (optional) --->
 		<cfset arrSubmit = [["Insert this record"]] />
 		<!--- This is the actual form call --->
-		<cfset this.createform = formdo(action='insert',table='images',message='We have successfully added the record!',fields='#arrFields#',submit='#arrSubmit#')>
+		<cfset this.createform = form_do(action='insert',table='images',message='We have successfully added the record!',fields='#arrFields#',submit='#arrSubmit#')>
 		
 		<cfset this.qry_img = db_select(table='images',fetch='id,img_title,img_date_new',where='',orderby='',groupby='',limit='')>
 		
@@ -57,7 +57,7 @@
 		<!--- Define Submit button: Label, action (in case for custom ajax or js call) (optional) --->
 		<cfset arrSubmit = [["Update this record"]] />
 		<!--- Update form --->
-		<cfset this.updateform = formdo(action='update',table='images',message='We have successfully updated the record!',fields='#arrFields#',submit='#arrSubmit#',args=arguments.args.args)>
+		<cfset this.updateform = form_do(action='update',table='images',message='We have successfully updated the record!',fields='#arrFields#',submit='#arrSubmit#',args=arguments.args.args)>
 		<!--- Translation --->
 		<cfset this.username = T('username')>
 		<!--- Return --->

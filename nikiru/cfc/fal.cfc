@@ -100,7 +100,7 @@
 					</p>
 				</cfloop>
 				<p>
-					<input type="submit" name="submitbut" value="#arguments.submit[1][1]#" />
+					<input type="submit" name="submitbut" value="#arguments.submit[1][1]#" class="btn" />
 				</p>
 			</form>
 			<!--- The JS for above form --->

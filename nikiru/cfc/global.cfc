@@ -131,7 +131,7 @@
 	</cffunction>
 	
 	<!--- Form --->
-	<cffunction access="public" name="formdo">
+	<cffunction access="public" name="form_do">
 		<cfargument name="action" type="string" required="true" />
 		<cfargument name="table" type="string" required="true" />
 		<cfargument name="message" type="string" required="true" />

@@ -72,8 +72,8 @@
 		<cfinvoke component="nikiru.cfc.setup" method="load_model" currentDir="#this.currentDir#" />
 		<!--- We check the connection to the DB here --->
 		<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
-		<!--- Setup database --->
-		<cfinvoke component="setup.db" method="init" />
+		<!--- Load modules --->
+		<cfinvoke component="nikiru.cfc.setup" method="load_modules" currentDir="#this.currentDir#" />
 		<!--- Init the translations --->
 		<cfset application.nikiru.resourcemanager = createObject('component', 'nikiru.cfc.ResourceManager').init('translations')>
 		<cfreturn true>
@@ -97,8 +97,8 @@
 			<cfinvoke component="nikiru.cfc.setup" method="load_model" currentDir="#this.currentDir#" />
 			<!--- We check the connection to the DB here --->
 			<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
-			<!--- Setup database --->
-			<cfinvoke component="setup.db" method="init" />
+			<!--- Load modules --->
+			<cfinvoke component="nikiru.cfc.setup" method="load_modules" currentDir="#this.currentDir#" />
 			<!--- Init the translations --->
 			<cfset application.nikiru.resourcemanager = createObject('component', 'nikiru.cfc.ResourceManager').init('translations')>
 		</cfif>
