@@ -33,8 +33,8 @@ But since you are already looking at this I think you know your way around CFML.
 
 ### Documentation ###
 
-Please use the [Wiki](/wiki) pages for up-to-date documentation.
+Please use the [Wiki](https://github.com/thenitai/nikiru/wiki) pages for up-to-date documentation.
 
 ### Support ###
 
-Please use the main repo's [issue tracker](issues) to report bugs and request enhancements.
+Please use the main repo's [issue tracker](https://github.com/thenitai/nikiru/issues) to report bugs and request enhancements.
