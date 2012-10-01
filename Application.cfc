@@ -68,10 +68,10 @@
 	
 	<!--- Run when application starts up --->
 	<cffunction name="onApplicationStart" returnType="boolean" output="false">
-		<!--- Load model --->
-		<cfinvoke component="nikiru.cfc.setup" method="load_model" currentDir="#this.currentDir#" />
 		<!--- We check the connection to the DB here --->
 		<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
+		<!--- Load model --->
+		<cfinvoke component="nikiru.cfc.setup" method="load_models" currentDir="#this.currentDir#" />
 		<!--- Load modules --->
 		<cfinvoke component="nikiru.cfc.setup" method="load_modules" currentDir="#this.currentDir#" />
 		<!--- Init the translations --->
@@ -93,10 +93,10 @@
 	<cffunction name="onRequestStart" returnType="boolean" output="true">
 		<!--- If in debug mode we load the model every time --->
 		<cfif this.db.reload>
-			<!--- Load model --->
-			<cfinvoke component="nikiru.cfc.setup" method="load_model" currentDir="#this.currentDir#" />
 			<!--- We check the connection to the DB here --->
 			<cfinvoke component="nikiru.cfc.dal" method="connect" thestruct="#this.db#" />
+			<!--- Load model --->
+			<cfinvoke component="nikiru.cfc.setup" method="load_models" currentDir="#this.currentDir#" />
 			<!--- Load modules --->
 			<cfinvoke component="nikiru.cfc.setup" method="load_modules" currentDir="#this.currentDir#" />
 			<!--- Init the translations --->
