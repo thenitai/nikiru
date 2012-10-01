@@ -1,8 +1,31 @@
+<!---
+*
+* This file is part of Nikiru - the web framework that gets out of your way.
+*
+* Nikiru is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* any later version.
+*
+* Nikiru is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU Affero Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Nikiru. If not, see <http://www.gnu.org/licenses/>.
+*
+* You may restribute this Program with a special exception to the terms
+* and conditions of version 3.0 of the GPL. 
+* You should have received a copy of the FLOSS exception
+* along with Nikiru. If not, see <http://www.Nikiru.com/licenses/>.
+*
+--->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>Nikiru - the web framework that gets out of your way</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -54,13 +77,13 @@
     <div class="container">
 
       <cfoutput>
-		This is a default layout that loads the view <br />
-		I'm loading view: #application.nikiru.view#
-			<!--- Variable to fill --->
-			#content#
-			<!--- 	Something after the view --->
-			<p>Loading this after the view has loaded. Maybe some footer here</p>
-	</cfoutput>
+        This is a default layout that loads the view <br />
+        I'm loading view: #application.nikiru.view#
+        <!--- Variable to fill --->
+        #content#
+        <!--- 	Something after the view --->
+        <p>Loading this after the view has loaded. Maybe some footer here</p>
+      </cfoutput>
 
     </div> <!-- /container -->
 
@@ -83,6 +106,3 @@
 
   </body>
 </html>
-
-
-
