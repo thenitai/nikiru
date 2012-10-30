@@ -24,8 +24,10 @@
 <cfcomponent output="false" extends="nikiru.cfc.global">
 	
 	<cffunction access="remote" name="default" returnType="struct" returnformat="json">
+		<!--- Struct --->
+		<cfset var s = structNew()>
 		<!--- Do something here --->
-		<cfset this.customvariable = "the index">
+		<cfset s.customvariable = "the index">
 		<!--- Load custom layout for this action --->
 		<!--- <cfset this.layout = "index"> --->
 		<!--- Load the view --->
@@ -51,13 +53,13 @@
 		--->
 		
 		<!--- Define fields: Label, fieldid, field type, required (true/false), initial field value (optional) --->
-		<cfset arrFields = [["Enter name","img_title","text","true"]] />
+		<cfset var arrFields = [["Enter name","img_title","text","true"]] />
 		<!--- Define Submit button: Label, action (in case for custom ajax or js call) (optional) --->
-		<cfset arrSubmit = [["Insert this record"]] />
+		<cfset var arrSubmit = [["Insert this record"]] />
 		<!--- This is the actual form call --->
-		<cfset this.createform = form_do(action='insert',table='images',message='We have successfully added the record!',fields='#arrFields#',submit='#arrSubmit#')>
+		<cfset s.createform = form_do(action='insert',table='images',message='We have successfully added the record!',fields='#arrFields#',submit='#arrSubmit#')>
 		
-		<cfset this.qry_img = db_select(table='images',fetch='id,img_title,img_date_new',where='',orderby='',groupby='',limit='')>
+		<cfset s.qry_img = db_select(table='images',fetch='id,img_title,img_date_new',where='',orderby='',groupby='',limit='')>
 		
 		<!--- Form End --->
 		
@@ -68,16 +70,18 @@
 		<!--- table,where (if the where is empty you will remove ALL records in the table !!! )--->
 		<!--- <cfset this.delete = db_delete(table='images',where='id = "#this.inserted#"')> --->
 		
+
+
 		<!--- Return --->
-		<cfreturn this />
+		<cfreturn s />
 	</cffunction>
 	
 	<cffunction access="public" name="edit_record">
 		<cfargument name="args" type="struct" required="false" />
 		<!--- Define fields: Label, fieldid, field type, required (true/false), initial field value (optional) --->
-		<cfset arrFields = [["Enter name","img_title","text","true"]] />
+		<cfset var arrFields = [["Enter name","img_title","text","true"]] />
 		<!--- Define Submit button: Label, action (in case for custom ajax or js call) (optional) --->
-		<cfset arrSubmit = [["Update this record"]] />
+		<cfset var arrSubmit = [["Update this record"]] />
 		<!--- Update form --->
 		<cfset this.updateform = form_do(action='update',table='images',message='We have successfully updated the record!',fields='#arrFields#',submit='#arrSubmit#',args=arguments.args.args)>
 		<!--- Translation --->

@@ -25,7 +25,7 @@
 	
 	<!--- Create the form --->
 	<!--- This actually also calls the action after the submit --->
-	<cffunction access="public" name="form_create">
+	<cffunction access="public" name="form_create" returntype="String">
 		<cfargument name="action" type="string" required="true" />
 		<cfargument name="table" type="string" required="true" />
 		<cfargument name="message" type="string" required="true" />
@@ -80,7 +80,7 @@
 			<cfset var theform = "">
 			<cfset var thefields = "">
 			<!--- Unique id for this form --->
-			<cfset var formid = createuuid("")>
+			<cfset var formid = createuuid()>
 			<!--- If this is for update we fetch the record --->
 			<cfif arguments.action EQ "update">
 				<!--- Get the id to query --->
@@ -132,7 +132,6 @@
 			<p>#arguments.message#</p>
 			</cfif>
 			</cfoutput></cfsavecontent>
-			
 		<!--- Return --->
 		<cfreturn theform>
 	</cffunction>

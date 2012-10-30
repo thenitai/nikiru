@@ -26,8 +26,9 @@
 	<!--- Load --->
 	<cffunction access="public" name="load">
 		<cfargument name="thecgi" type="struct" required="true" />
-		<!--- Create struct --->
+		<!--- Params --->
 		<cfset var thisstruct = structNew()>
+		<cfset var con_return = "">
 		<!--- set the controller --->
 		<cfif arguments.thecgi.query_string EQ "" OR arguments.thecgi.query_string EQ "/">
 			<cfset var thecontroller = "default">
@@ -89,11 +90,9 @@
 		<!--- Put arguments struct from above into variables struct so it is available to the user --->
 		<cfset variables.controller = arguments.thestruct>
 		<!--- Load the view --->
-		<cfsavecontent variable="theview"><cfsetting enablecfoutputonly="false" /><cfinclude template="#path_views##arguments.thestruct.view#.cfm" /><cfsetting enablecfoutputonly="true" /></cfsavecontent>
-		<!--- Load view into content variable --->
-		<cfset content = theview>
+		<cfsavecontent variable="variables.content"><cfinclude template="#path_views##arguments.thestruct.view#.cfm" /></cfsavecontent>
 		<!--- Load layout --->
-		<cfinclude template = "#path_layouts##arguments.thestruct.layout#.cfm">
+		<cfinclude template="#path_layouts##arguments.thestruct.layout#.cfm">
 		<!--- Return --->
 		<cfreturn />
 	</cffunction>
@@ -161,9 +160,9 @@
 		<cfargument name="submit" type="array" required="true" />
 		<cfargument name="args" type="string" required="false" default="" />
 			<!--- Param --->
-			<cfset var form = 0>
+			<cfset var theform = 0>
 			<!--- Call our internal function --->
-			<cfinvoke component="fal" method="form_create" returnvariable="form">
+			<cfinvoke component="fal" method="form_create" returnvariable="theform">
 				<cfinvokeargument name="action" value="#arguments.action#" />
 				<cfinvokeargument name="table" value="#arguments.table#" />
 				<cfinvokeargument name="message" value="#arguments.message#" />
@@ -172,7 +171,7 @@
 				<cfinvokeargument name="args" value="#arguments.args#" />
 			</cfinvoke>
 		<!--- Return --->
-		<cfreturn form />
+		<cfreturn theform />
 	</cffunction>
 	
 	<!--- Translation --->

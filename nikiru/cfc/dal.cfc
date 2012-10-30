@@ -56,6 +56,15 @@
 		<cfargument name="thearray" type="array" required="true" />
 		<!--- Arry[1] is the table name --->
 		<cfset var tablename = arguments.thearray[1][2]>
+		<!--- Drop all primary keys for this table --->
+		<cftry>
+			<cfif application.db.type EQ "mysql" OR application.db.type EQ "h2">
+				<cfquery datasource="#application.db.dsn#">
+				ALTER TABLE #tablename# DROP PRIMARY KEY
+				</cfquery>
+			</cfif>
+			<cfcatch></cfcatch>
+		</cftry>
 		<!--- Create table --->
 		<cftry>
 			<cfif application.db.type EQ "mysql" OR application.db.type EQ "h2">
@@ -67,12 +76,14 @@
 				</cfquery>
 				<cfif tbl.recordcount EQ 0>
 					<cfquery datasource="#application.db.dsn#">
-					CREATE TABLE #tablename# (id varchar(100))
+					CREATE TABLE #tablename# (id varchar(100), PRIMARY KEY(id))
 					#this.mysql_db_params#
 					</cfquery>
 				</cfif>
 			</cfif>
-			<cfcatch></cfcatch>
+			<cfcatch>
+				<cflog application="true" file="Nikiru" type="error" text="#cfcatch.message# #cfcatch.detail# #cfcatch.ExtendedInfo#" />
+			</cfcatch>
 		</cftry>
 		<!--- The rest of the array are fields --->
 		<cfloop index="f" from="2" to="#arrayLen(arguments.thearray)#">
@@ -98,7 +109,22 @@
 						</cfquery>
 					</cfif>
 				</cfif>
-				<cfcatch></cfcatch>
+				<cfcatch>
+					<cflog application="true" file="Nikiru" type="error" text="#cfcatch.message# #cfcatch.detail# #cfcatch.ExtendedInfo#" />
+				</cfcatch>
+			</cftry>
+			<!--- Check for primary key value and add it --->
+			<cftry>
+				<cfif application.db.type EQ "mysql" OR application.db.type EQ "h2">
+					<cfif ArrayIsDefined(arguments.thearray[f],3) AND arguments.thearray[f][3] EQ "primary">
+						<cfquery datasource="#application.db.dsn#">
+						ALTER TABLE #tablename# ADD PRIMARY KEY (#arguments.thearray[f][1]#)
+						</cfquery>
+					</cfif>
+				</cfif>
+				<cfcatch>
+					<cflog application="true" file="Nikiru" type="error" text="#cfcatch.message# #cfcatch.detail# #cfcatch.ExtendedInfo#" />
+				</cfcatch>
 			</cftry>
 		</cfloop>
 		<!--- Cachekey --->
@@ -127,7 +153,7 @@
 			<cfinvokeargument name="columnname" value="#listfirst(i,":")#" />
 		</cfinvoke> --->
 		<!--- Query --->
-		<cfquery datasource="#application.db.dsn#" name="qry" cacheRegion="nikiru" cachedwithin="1">
+		<cfquery datasource="#application.db.dsn#" name="qry" cachedwithin="1">
 		SELECT /* #session.cachekey# */ <cfif arguments.fetch EQ "">*<cfelse>#arguments.fetch#</cfif>
 		FROM #arguments.table#
 		<cfif arguments.where NEQ "">
@@ -150,7 +176,7 @@
 		<cfargument name="fields" type="string" required="true" />
 		<!--- Param --->
 		<cfset var qry = 0>
-		<cfset var theid = createuuid("")>
+		<cfset var theid = createuuid()>
 		<!--- Do an insert of the ID --->
 		<cfquery datasource="#application.db.dsn#">
 		INSERT INTO #arguments.table#

@@ -33,11 +33,13 @@
 		<!---  --->
 		
 		<!--- Setup Tables --->
-		<cfset define_table([['tablename','mytable'],['title','varchar(50)'],['sometext','varchar(100)']])>
+		<cfset define_table([['tablename','users'],['user_id','varchar(100)','primary'],['user_email','varchar(200)'],['user_first_name','varchar(200)'],['user_last_name','varchar(300)'],['user_pass','varchar(200)']])>
 	
 		<!--- Another table --->
 		<cfset define_table([['tablename','images'],['img_title','varchar(100)'],['img_date_new','timestamp']])>
-	
+		
+
+
 		<!---  --->
 		<!--- That's it. Nothing else to do here. --->
 		<!--- Don't forget to restart your application if you are changing these values during runtime! --->

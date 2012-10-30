@@ -34,7 +34,7 @@
 		<cfloop query="m">
 			<!--- Remove .cfc from name --->
 			<cfset n = listfirst(name,".")>
-			<cfset application.nikiru["#n#"] = createobject(type="component",object="modules.#n#")>
+			<cfset application.nikiru["#n#"] = createobject("component","modules.#n#")>
 		</cfloop>
 	</cffunction>
 
